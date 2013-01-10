@@ -29,5 +29,6 @@ public class SQLScrapbookEditor extends Editor {
 		
 		SWTBotShell shell = getBot().shell("SQL Statement Execution");
 		getBot().waitUntil(Conditions.shellCloses(shell), TaskDuration.LONG.getTimeout());
+		getBot().sleep(5000);
 	}
 }

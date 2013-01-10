@@ -20,6 +20,7 @@
 	  <test.class>org.teiid.designer.ui.bot.test.suite.TeiidDesignerAllTests</test.class>
 	  <eclipse.product>org.eclipse.platform.ide</eclipse.product>
 	  <requirementsDirectory>${project.build.directory}/requirements</requirementsDirectory>
+	  <additionalDependency>org.jboss.ide.eclipse.as.feature.feature.group</additionalDependency>
 	</properties>
 	
 	<build>
@@ -55,6 +56,11 @@
 		  <dependency>
 		    <type>p2-installable-unit</type>
 		    <artifactId>org.jboss.ide.eclipse.as.feature.feature.group</artifactId>
+		    <version>0.0.0</version>
+		  </dependency>
+		  <dependency>
+		    <type>p2-installable-unit</type>
+		    <artifactId>${additionalDependency}</artifactId>
 		    <version>0.0.0</version>
 		  </dependency>
 		</dependencies>
