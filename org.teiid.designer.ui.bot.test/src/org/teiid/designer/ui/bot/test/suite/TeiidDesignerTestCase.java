@@ -9,6 +9,7 @@ import java.nio.channels.FileChannel;
 
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.datatools.connectivity.ConnectionProfileException;
+import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.SWTBot;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotMenu;
@@ -24,6 +25,7 @@ import org.jboss.tools.ui.bot.ext.types.DriverEntity;
 import org.jboss.tools.ui.bot.ext.types.IDELabel;
 import org.jboss.tools.ui.bot.ext.types.ViewType;
 import org.junit.AfterClass;
+import org.teiid.designer.ui.bot.ext.teiid.editor.ModelEditor;
 import org.teiid.designer.ui.bot.ext.teiid.wizard.NewTeiidModelProjectWizard;
 import org.teiid.designer.ui.bot.test.Activator;
 
@@ -173,5 +175,11 @@ public class TeiidDesignerTestCase extends SWTTestExt {
 			bot.waitWhile(new NonSystemJobRunsCondition(), TaskDuration.LONG.getTimeout());
 			log.info("All files saved.");
 		}
+	}
+	
+	public static ModelEditor modelEditor(String title) {
+		SWTBotEditor editor = bot.editorByTitle(title);
+		ModelEditor modelEditor = new ModelEditor(editor.getReference(), bot);
+		return modelEditor;
 	}
 }

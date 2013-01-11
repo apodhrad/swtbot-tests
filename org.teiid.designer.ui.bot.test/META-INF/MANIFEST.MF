@@ -20,5 +20,6 @@ Require-Bundle: org.eclipse.swtbot.go,
  org.eclipse.ui,
  org.teiid.designer.transformation.ui,
  org.teiid.designer.diagram.ui,
- org.teiid.designer.mapping.ui
+ org.teiid.designer.mapping.ui,
+ org.eclipse.gef;bundle-version="3.7.2"
 Eclipse-RegisterBuddy: org.apache.log4j
