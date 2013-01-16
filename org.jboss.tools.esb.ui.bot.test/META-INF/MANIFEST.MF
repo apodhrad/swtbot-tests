@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ESB SWTBot Tests
+Bundle-SymbolicName: org.jboss.tools.esb.ui.bot.test
+Bundle-Version: 1.5.0.qualifier
+Bundle-Activator: org.jboss.tools.esb.ui.bot.tests.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.ui.forms;bundle-version="3.5.101",
+ org.eclipse.swtbot.go;bundle-version="2.0.5",
+ org.jboss.tools.ui.bot.ext;bundle-version="3.2.0"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Eclipse-RegisterBuddy: org.apache.log4j
+Bundle-ClassPath: .
