@@ -348,7 +348,7 @@
 			<target>
 			  <echo file="${requirementsDirectory}/jboss-soa-p-5/jboss-as/server/default/conf/props/soa-users.properties">admin=admin</echo>
 			  <echo file="${requirementsDirectory}/jboss-soa-p-5/jboss-as/server/default/conf/props/teiid-security-users.properties">user=user</echo>
-			  <echo file="soa.properties">SERVER=SOA,5.3,default,target/requirements/jboss-soa-p-5/jboss-as${line.separator}ESB=4.11,target/requirements/jboss-soa-p-5</echo>
+			  <echo file="soa.properties">SERVER=SOA,5.3,default,target/requirements/jboss-soa-p-5/jboss-as${line.separator}ESB=4.11,target/requirements/jboss-soa-p-5${line.separator}MODESHAPE=eds</echo>
 			</target>
 		      </configuration>
 		    </execution>
