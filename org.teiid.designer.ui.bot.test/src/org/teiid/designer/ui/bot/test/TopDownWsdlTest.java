@@ -2,6 +2,12 @@ package org.teiid.designer.ui.bot.test;
 
 import static org.eclipse.swtbot.swt.finder.waits.Conditions.shellCloses;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.datatools.connectivity.ConnectionProfileException;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
@@ -25,6 +31,7 @@ import org.teiid.designer.ui.bot.ext.teiid.editor.VDBEditor;
 import org.teiid.designer.ui.bot.ext.teiid.instance.NewDefaultTeiidInstance;
 import org.teiid.designer.ui.bot.ext.teiid.perspective.DatabaseDevelopmentPerspective;
 import org.teiid.designer.ui.bot.ext.teiid.perspective.TeiidPerspective;
+import org.teiid.designer.ui.bot.ext.teiid.util.TeiidManager;
 import org.teiid.designer.ui.bot.ext.teiid.view.ModelExplorerView;
 import org.teiid.designer.ui.bot.ext.teiid.view.SQLResult;
 import org.teiid.designer.ui.bot.ext.teiid.wizard.CreateVDB;
@@ -207,37 +214,24 @@ public class TopDownWsdlTest extends TeiidDesignerTestCase {
 		TeiidPerspective.getInstance().getTeiidInstanceView()
 				.reconnect(NewDefaultTeiidInstance.TEIID_URL);
 
-		DatabaseDevelopmentPerspective.getInstance().getExplorerView()
-				.openSQLScrapbook(VDB_NAME + ".*", true);
-
-		SQLScrapbookEditor sqlEditor = new SQLScrapbookEditor();
-		sqlEditor.show();
-		sqlEditor.setDatabase(VDB_NAME);
-
-		String testSql = "SELECT * FROM ChkOrdSvcResponses.Service1Soap_CheckOrder_OCout";
-		sqlEditor.setText(testSql);
-		sqlEditor.executeAll();
-
-		SQLResult result = DatabaseDevelopmentPerspective.getInstance().getSqlResultsView()
-				.getByOperation(testSql);
-		assertEquals(SQLResult.STATUS_SUCCEEDED, result.getStatus());
-		
-		testSql = "EXEC ChkOrdSvc.Service1Soap.CheckOrder('<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+		sql = "EXEC ChkOrdSvc.Service1Soap.CheckOrder('<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
 				+ "<OC_Input xmlns=\"http://com.metamatrix/TPCRwsdl_VDB\">"
 				+ "<OrderDate>1993-03-31</OrderDate>"
-				+ "<ShipDateLow>1993-04-01</ShipDateLow>"
-				+ "<ShipDateHigh>1993-04-02</ShipDateHigh>" + "</OC_Input>')";
+				+ "<ShipDateLow>1993-04-15</ShipDateLow>"
+				+ "<ShipDateHigh>1993-04-15</ShipDateHigh>" + "</OC_Input>')";
 
-		sqlEditor.setText(testSql);
-		sqlEditor.executeAll();
-		result = DatabaseDevelopmentPerspective.getInstance().getSqlResultsView()
-				.getByOperation(testSql);
-	 	assertEquals(SQLResult.STATUS_SUCCEEDED, result.getStatus());
+		Connection conn = TeiidManager.getConnection(VDB_NAME);
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(sql);
+		String xml = null;
+		while (rs.next()) {
+			xml = rs.getString(1);
+		}
+		conn.close();
+
+		assertEquals("Result rows don't match", xml.split("<schema1:CONTAINER>").length, 26);
 		
-	 	// Close the editor without saving
-	 	sqlEditor.close();
-	 	
-	 	// Generate the WAR file
+		// Generate the WAR file
 		
 		System.out.println("Done.");
 	}

@@ -291,36 +291,36 @@ public class VirtualGroupTutorialTest extends TeiidDesignerTestCase {
 		editor.setDatabase(VDB_NAME);
 
 
-		// TESTSQL_1  
-		editor.setText(TESTSQL_1);
-		editor.executeAll();
-		
-		SQLResult result = DatabaseDevelopmentPerspective.getInstance().getSqlResultsView().getByOperation(TESTSQL_1);
-		assertEquals(SQLResult.STATUS_SUCCEEDED, result.getStatus());
-
-		// TESTSQL_2 
-		editor.show();
-		editor.setText(TESTSQL_2);
-		editor.executeAll();
-
-		result = DatabaseDevelopmentPerspective.getInstance().getSqlResultsView().getByOperation(TESTSQL_2);
-		assertEquals(SQLResult.STATUS_SUCCEEDED, result.getStatus());
-
-		// TESTSQL_3 
-		editor.show();
-		editor.setText(TESTSQL_3);
-		editor.executeAll();
-
-		result = DatabaseDevelopmentPerspective.getInstance().getSqlResultsView().getByOperation(TESTSQL_3);
-		assertEquals(SQLResult.STATUS_SUCCEEDED, result.getStatus());
-		assertEquals(126, result.getCount());
+//		// TESTSQL_1  
+//		editor.setText(TESTSQL_1);
+//		editor.executeAll();
+//		
+//		SQLResult result = DatabaseDevelopmentPerspective.getInstance().getSqlResultsView().getByOperation(TESTSQL_1);
+//		assertEquals(SQLResult.STATUS_SUCCEEDED, result.getStatus());
+//
+//		// TESTSQL_2 
+//		editor.show();
+//		editor.setText(TESTSQL_2);
+//		editor.executeAll();
+//
+//		result = DatabaseDevelopmentPerspective.getInstance().getSqlResultsView().getByOperation(TESTSQL_2);
+//		assertEquals(SQLResult.STATUS_SUCCEEDED, result.getStatus());
+//
+//		// TESTSQL_3 
+//		editor.show();
+//		editor.setText(TESTSQL_3);
+//		editor.executeAll();
+//
+//		result = DatabaseDevelopmentPerspective.getInstance().getSqlResultsView().getByOperation(TESTSQL_3);
+//		assertEquals(SQLResult.STATUS_SUCCEEDED, result.getStatus());
+//		assertEquals(126, result.getCount());
 
 		// TESTSQL_4
 		editor.show();
 		editor.setText(TESTSQL_4);
 		editor.executeAll();
 
-		result = DatabaseDevelopmentPerspective.getInstance().getSqlResultsView().getByOperation(TESTSQL_4);
+		SQLResult result = DatabaseDevelopmentPerspective.getInstance().getSqlResultsView().getByOperation(TESTSQL_4);
 		assertEquals(SQLResult.STATUS_SUCCEEDED, result.getStatus());
 		assertEquals(30, result.getCount());
 	}

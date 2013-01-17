@@ -80,6 +80,7 @@
 	</repositories>
 
 	<profiles>
+	  <!-- JBoss Developer Studio -->
 	  <profile>
 	    <id>jbds</id>
 	    <properties>
@@ -107,6 +108,7 @@
 	      </plugins>
 	    </build>
 	  </profile>
+	  <!-- Install AS 5.1 with ESB and Riftsaw -->
 	  <profile>
 	    <id>as-51</id>
 	    <properties>
@@ -114,7 +116,6 @@
 	    </properties>
 	    <build>
 	      <plugins>
-		<!-- Install AS, ESB and Riftsaw -->
 		<plugin>
 		  <groupId>com.googlecode.maven-download-plugin</groupId>
 		  <artifactId>maven-download-plugin</artifactId>
@@ -204,9 +205,8 @@
 	      </plugins>
 	    </build>
 	  </profile>
-
+	  <!-- Install SOA Platform -->
 	  <profile>
-	    <!-- Install SOA-P. You have to specify soa-url -->
 	    <id>soa-p</id>
 	    <properties>
 	      <swtbot.test.properties.file>soa.properties</swtbot.test.properties.file>
@@ -257,7 +257,107 @@
 		</plugin>
 	      </plugins>
 	    </build>
-	  </profile>	  
+	  </profile>
+	  <!-- Install SOA Platform with EDS --> 
+	  <profile>
+	    <id>soa-eds</id>
+	    <properties>
+	      <swtbot.test.properties.file>soa.properties</swtbot.test.properties.file>
+	      <soa-url>http://10.34.32.168/released/soa-5.3.0.GA/soa-p-5.3.0.GA.zip</soa-url>
+	      <eds-url>http://10.34.32.168/released/soa-5.3.0.GA/eds-p-5.3.0.GA.zip</eds-url>
+	    </properties>
+	    <build>
+	      <plugins>
+		<plugin>
+		  <groupId>com.googlecode.maven-download-plugin</groupId>
+		  <artifactId>maven-download-plugin</artifactId>
+		  <version>0.2-SNAPSHOT</version>
+		  <configuration>
+		    <outputDirectory>${requirementsDirectory}</outputDirectory>
+		  </configuration>
+		  <executions>
+		    <execution>
+		      <id>get-soa</id>
+		      <phase>pre-integration-test</phase>
+		      <goals>
+			<goal>wget</goal>
+		      </goals>
+		      <configuration>
+			<url>${soa-url}</url>
+			<unpack>true</unpack>
+		      </configuration>
+		    </execution>
+		    <execution>
+		      <id>get-eds</id>
+		      <phase>pre-integration-test</phase>
+		      <goals>
+			<goal>wget</goal>
+		      </goals>
+		      <configuration>
+			<url>${eds-url}</url>
+			<unpack>true</unpack>
+			<outputDirectory>${requirementsDirectory}/jboss-soa-p-5</outputDirectory>
+		      </configuration>
+		    </execution>
+		  </executions>
+		</plugin>
+		<plugin>
+		  <artifactId>maven-antrun-plugin</artifactId>
+		  <version>1.7</version>
+		  <executions>
+		    <execution>
+		      <id>install-eds</id>
+		      <phase>pre-integration-test</phase>
+		      <goals>
+			<goal>run</goal>
+		      </goals>
+		      <configuration>
+			<target>
+			  <ant dir="${requirementsDirectory}/jboss-soa-p-5/eds" useNativeBasedir="true">
+			    <property name="profile" value="default" />
+			  </ant>
+			</target>
+		      </configuration>
+		    </execution>
+		    <execution>
+		      <id>copy-drivers</id>
+		      <phase>pre-integration-test</phase>
+		      <goals>
+			<goal>run</goal>
+		      </goals>
+		      <configuration>
+			<tasks>
+			  <echo message="Copying drivers..."/>
+			  <copy todir="${requirementsDirectory}/jboss-soa-p-5/jboss-as/server/default/lib">
+			    <fileset dir="${basedir}/lib">
+			      <include name="ojdbc*.jar"/>
+			      <include name="sqljdbc*.jar"/>
+			    </fileset>
+			  </copy>
+			  <echo message="Drivers copied"/>
+			</tasks>
+		      </configuration>
+		    </execution>
+		    <execution>
+		      <id>set-properties</id>
+		      <phase>pre-integration-test</phase>
+		      <goals>
+			<goal>run</goal>
+		      </goals>
+		      <configuration>
+			<target>
+			  <echo file="${requirementsDirectory}/jboss-soa-p-5/jboss-as/server/default/conf/props/soa-users.properties">admin=admin</echo>
+			  <echo file="${requirementsDirectory}/jboss-soa-p-5/jboss-as/server/default/conf/props/teiid-security-users.properties">user=user</echo>
+			  <echo file="soa.properties">SERVER=SOA,5.3,default,target/requirements/jboss-soa-p-5/jboss-as${line.separator}ESB=4.11,target/requirements/jboss-soa-p-5</echo>
+			</target>
+		      </configuration>
+		    </execution>
+		  </executions>
+		</plugin>
+	      </plugins>
+	    </build>
+	  </profile>
 	</profiles>
-
+	
 </project>
+      

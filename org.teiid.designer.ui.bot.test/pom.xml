@@ -10,17 +10,12 @@
 
 	<parent>
 	  <groupId>org.jboss.tools</groupId>
-	  <artifactId>parent</artifactId>
-	  <version>3.3.0.Final-SNAPSHOT</version>
+	  <artifactId>tests</artifactId>
+	  <version>3.3.0-SNAPSHOT</version>
 	</parent>
 
 	<properties>
-	  <swtbot.test.properties.file>swtbot.properties</swtbot.test.properties.file>
-	  <systemProperties>-Dswtbot.test.properties.file=${swtbot.test.properties.file}</systemProperties>
 	  <test.class>org.teiid.designer.ui.bot.test.suite.TeiidDesignerAllTests</test.class>
-	  <eclipse.product>org.eclipse.platform.ide</eclipse.product>
-	  <requirementsDirectory>${project.build.directory}/requirements</requirementsDirectory>
-	  <additionalDependency>org.jboss.ide.eclipse.as.feature.feature.group</additionalDependency>
 	</properties>
 	
 	<build>
@@ -30,13 +25,8 @@
 	      <groupId>org.eclipse.tycho</groupId>
 	      <artifactId>tycho-surefire-plugin</artifactId>
 	      <configuration>
-		<useUIThread>false</useUIThread>
-		<surefire.timeout>3600</surefire.timeout>
-		<forkedProcessTimeoutInSeconds>3600</forkedProcessTimeoutInSeconds>
-		<product>${eclipse.product}</product>
 		<testSuite>org.teiid.designer.ui.bot.test</testSuite>
 		<testClass>${test.class}</testClass>
-		<skip>${swtbot.test.skip}</skip>
 		<dependencies combine.children="append">
 		  <dependency>
 		    <type>p2-installable-unit</type>
@@ -55,181 +45,13 @@
 		  </dependency>
 		  <dependency>
 		    <type>p2-installable-unit</type>
-		    <artifactId>org.jboss.ide.eclipse.as.feature.feature.group</artifactId>
-		    <version>0.0.0</version>
-		  </dependency>
-		  <dependency>
-		    <type>p2-installable-unit</type>
-		    <artifactId>${additionalDependency}</artifactId>
+		    <artifactId>${as.feature}</artifactId>
 		    <version>0.0.0</version>
 		  </dependency>
 		</dependencies>
 	      </configuration>
 	    </plugin>
-	    <!-- Install AS and Teiid -->
-	    <plugin>
-	      <groupId>com.googlecode.maven-download-plugin</groupId>
-	      <artifactId>maven-download-plugin</artifactId>
-	      <version>0.2-SNAPSHOT</version>
-	      <configuration>
-		<outputDirectory>${requirementsDirectory}</outputDirectory>
-	      </configuration>
-	      <executions>
-		<execution>
-		  <id>install-as-5.1.0</id>
-		  <phase>pre-integration-test</phase>
-		  <goals>
-		    <goal>wget</goal>
-		  </goals>
-		  <configuration>
-		    <url>http://repository.jboss.org/sourceforge/jboss-5.1.0.GA.zip</url>
-		    <md5>78322c75ca0c13002a04418b4a8bc920</md5>
-		    <unpack>true</unpack>
-		  </configuration>
-		</execution>
-		<execution>
-		  <id>get-teiid</id>
-		  <phase>pre-integration-test</phase>
-		  <goals>
-		    <goal>wget</goal>
-		  </goals>
-		  <configuration>
-		    <url>http://sourceforge.net/projects/teiid/files/teiid/7.7/Final/teiid-7.7.0.Final-jboss-dist.zip</url>
-		    <md5>d5107e33b5c18673cbc74698e08b7612</md5>
-		    <unpack>true</unpack>
-		    <outputDirectory>${requirementsDirectory}/jboss-5.1.0.GA/server/default</outputDirectory>
-		  </configuration>
-		</execution>
-	      </executions>
-	    </plugin>
-	    <plugin>
-	      <artifactId>maven-antrun-plugin</artifactId>
-	      <version>${maven.antrun.plugin.version}</version>
-	      <executions>
-		<execution>
-		  <id>prepare-teiid</id>
-		  <phase>pre-integration-test</phase>
-		  <goals>
-		    <goal>run</goal>
-		  </goals>
-		  <configuration>
-		    <tasks>
-		      <echo message="Copying drivers..."/>
-		      <copy todir="${requirementsDirectory}/jboss-5.1.0.GA/server/default/lib">
-			<fileset dir="${basedir}/lib">
-			  <include name="ojdbc*.jar"/>
-			  <include name="sqljdbc*.jar"/>
-			</fileset>
-		      </copy>
-		      <echo message="Drivers copied"/>
-		    </tasks>
-		  </configuration>
-		</execution>
-	      </executions>
-	    </plugin>
 	  </plugins>
 	</build>
-
-	
-	<profiles>
-	  <profile>
-	    <!-- Install SOA-P. You have to specify soa-url -->
-	    <id>soa</id>
-	    <activation>
-	      <property>
-		<name>soa-url</name>
-	      </property>
-	    </activation>
-	    <properties>
-	      <swtbot.test.properties.file>soa.properties</swtbot.test.properties.file>
-	    </properties>
-	    <build>
-	      <plugins>
-		<plugin>
-		  <groupId>com.googlecode.maven-download-plugin</groupId>
-		  <artifactId>maven-download-plugin</artifactId>
-		  <executions>
-		    <execution>
-		      <id>get-soa</id>
-		      <phase>pre-integration-test</phase>
-		      <goals>
-			<goal>wget</goal>
-		      </goals>
-		      <configuration>
-			<url>${soa-url}</url>
-			<unpack>true</unpack>
-		      </configuration>
-		    </execution>
-		    <execution>
-		      <id>get-eds</id>
-		      <phase>pre-integration-test</phase>
-		      <goals>
-			<goal>wget</goal>
-		      </goals>
-		      <configuration>
-			<url>${eds-url}</url>
-			<unpack>true</unpack>
-			<outputDirectory>${requirementsDirectory}/jboss-soa-p-5</outputDirectory>
-		      </configuration>
-		    </execution>
-		  </executions>
-		</plugin>
-		<plugin>
-		  <artifactId>maven-antrun-plugin</artifactId>
-		  <version>1.7</version>
-		  <executions>
-		    <execution>
-		      <id>install-eds</id>
-		      <phase>pre-integration-test</phase>
-		      <goals>
-			<goal>run</goal>
-		      </goals>
-		      <configuration>
-			<target>
-			  <ant dir="${requirementsDirectory}/jboss-soa-p-5/eds" useNativeBasedir="true">
-			    <property name="profile" value="default" />
-			  </ant>
-			</target>
-		      </configuration>
-		    </execution>
-		    <execution>
-		      <id>copy-drivers</id>
-		      <phase>pre-integration-test</phase>
-		      <goals>
-			<goal>run</goal>
-		      </goals>
-		      <configuration>
-			<tasks>
-			  <echo message="Copying drivers..."/>
-			  <copy todir="${requirementsDirectory}/jboss-soa-p-5/jboss-as/server/default/lib">
-			    <fileset dir="${basedir}/lib">
-			      <include name="ojdbc*.jar"/>
-			      <include name="sqljdbc*.jar"/>
-			    </fileset>
-			  </copy>
-			  <echo message="Drivers copied"/>
-			</tasks>
-		      </configuration>
-		    </execution>
-		    <execution>
-		      <id>set-properties</id>
-		      <phase>pre-integration-test</phase>
-		      <goals>
-			<goal>run</goal>
-		      </goals>
-		      <configuration>
-			<target>
-			  <echo file="${requirementsDirectory}/jboss-soa-p-5/jboss-as/server/default/conf/props/soa-users.properties">admin=admin</echo>
-			  <echo file="${requirementsDirectory}/jboss-soa-p-5/jboss-as/server/default/conf/props/teiid-security-users.properties">user=user</echo>
-			  <echo file="soa.properties">SERVER=SOA,5.3,default,target/requirements/jboss-soa-p-5/jboss-as</echo>
-			</target>
-		      </configuration>
-		    </execution>
-		  </executions>
-		</plugin>
-	      </plugins>
-	    </build>
-	  </profile>
-	</profiles>
 
 </project>
