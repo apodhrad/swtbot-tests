@@ -19,6 +19,7 @@
 	  <soa-update-site>http://download.jboss.org/jbosstools/updates/soatools-3.3.1.Final</soa-update-site>
 	  <test-update-site>http://download.jboss.org/jbosstools/updates/nightly/coretests/3.3.indigo</test-update-site>
 	  <as.feature>org.jboss.ide.eclipse.as.feature.feature.group</as.feature>
+	  <as.version>2.3.2</as.version>
 	  <example.feature>org.jboss.tools.community.project.examples.feature.feature.group</example.feature>
 	</properties>
 
@@ -35,7 +36,7 @@
 		  <dependency>
 		    <type>p2-installable-unit</type>
 		    <artifactId>org.jboss.ide.eclipse.as.feature.feature.group</artifactId>
-		    <version>0.0.0</version>
+		    <version>${as.version}</version>
 		  </dependency>
 		</dependencies>
 	      </configuration>
