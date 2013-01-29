@@ -36,6 +36,11 @@
 		    <artifactId>${esb.feature}</artifactId>
 		    <version>${esb.version}</version>
 		  </dependency>
+		  <dependency>
+		    <type>p2-installable-unit</type>
+		    <artifactId>${example.feature}</artifactId>
+		    <version>0.0.0</version>
+		  </dependency>
 		</dependencies>
 	      </configuration>
 	    </plugin>
