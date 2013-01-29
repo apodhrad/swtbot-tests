@@ -101,7 +101,7 @@
 		      <dependency>
 			<type>p2-installable-unit</type>
 			<artifactId>com.jboss.jbds.all</artifactId>
-			<version>[5.0.2]</version>
+			<version>5.0.2</version>
 		      </dependency>
 		    </dependencies>
 		  </configuration>
