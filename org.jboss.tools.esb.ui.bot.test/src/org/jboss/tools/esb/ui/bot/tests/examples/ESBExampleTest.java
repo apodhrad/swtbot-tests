@@ -44,10 +44,10 @@ public class ESBExampleTest extends ExampleTest{
 	 */
 	@Override
 	protected void postImport() {
-		fixExampleLibs();
-		if (getExampleClientProjectName()!=null) {
-			fixExampleClientLibs();
-		}	
+//		fixExampleLibs();
+//		if (getExampleClientProjectName()!=null) {
+//			fixExampleClientLibs();
+//		}	
 		
 		/* Close the open, but empty "Quick Fix" dialog if it is open.
 		 * Temporary fix to workaround https://issues.jboss.org/browse/JBIDE-11781 */

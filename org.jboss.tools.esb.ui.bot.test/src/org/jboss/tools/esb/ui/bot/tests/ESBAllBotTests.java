@@ -32,17 +32,17 @@ import org.junit.runners.Suite.SuiteClasses;
 	NewProjectUsingRuntime.class,
 	NewProjectUsingBundledInEAP.class,
 	Editing.class,
-//	HelloWorld.class,
-//	HelloWorldAction.class,
-//	HelloWorldFileAction.class,
-//	SmooksCSV2XML.class,
-//	SmooksXML2POJO.class,
-//	SmooksXML2XMLDateManipulation.class,
-//	SmooksXML2XMLSimple.class,
-//	WebServiceConsumer1.class,
-//	WebServiceProducer.class,  // http://lists.jboss.org/pipermail/jbosstools-dev/2008-December/002559.html
-//	WebServiceProducerHttp.class,
-//	WebServiceProducerSocket.class
+	HelloWorld.class,
+	HelloWorldAction.class,
+	HelloWorldFileAction.class,
+	SmooksCSV2XML.class,
+	SmooksXML2POJO.class,
+	SmooksXML2XMLDateManipulation.class,
+	SmooksXML2XMLSimple.class,
+	WebServiceConsumer1.class,
+	WebServiceProducer.class,  // http://lists.jboss.org/pipermail/jbosstools-dev/2008-December/002559.html
+	WebServiceProducerHttp.class,
+	WebServiceProducerSocket.class
 	//SimpleEAPTest.class
 	})
 @RunWith(RequirementAwareSuite.class)
