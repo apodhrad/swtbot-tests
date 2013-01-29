@@ -86,8 +86,8 @@
 	    <id>jbds</id>
 	    <properties>
 	      <jbosstools-target-site>http://www.qa.jboss.com/binaries/RHDS/updates/jbds-target-platform_3.3.indigo.SR2</jbosstools-target-site>
-	      <core-update-site>http://www.qa.jboss.com/binaries/RHDS/updates/development/5.0.1.GA.core</core-update-site>
-	      <soa-update-site>http://www.qa.jboss.com/binaries/RHDS/updates/development/5.0.2.GA.soa-tooling</soa-update-site>
+	      <core-update-site>http://www.qa.jboss.com/binaries/RHDS/updates/development/5.0.2.GA.core</core-update-site>
+	      <soa-update-site>http://www.qa.jboss.com/binaries/RHDS/updates/development/5.0.3.GA.soa-tooling</soa-update-site>
 	      <example.feature>com.jboss.jbds.bpel.feature.feature.group</example.feature>
 	    </properties>
 	    <build>
@@ -101,7 +101,7 @@
 		      <dependency>
 			<type>p2-installable-unit</type>
 			<artifactId>com.jboss.jbds.all</artifactId>
-			<version>0.0.0</version>
+			<version>[5.0.2]</version>
 		      </dependency>
 		    </dependencies>
 		  </configuration>
