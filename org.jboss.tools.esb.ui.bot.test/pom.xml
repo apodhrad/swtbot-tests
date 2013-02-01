@@ -16,6 +16,7 @@
 	  <esb.feature>org.jboss.tools.esb.feature.feature.group</esb.feature>
 	  <esb.version>[1.5.100,1.5.101)</esb.version>
 	  <test.timeout>3600</test.timeout>
+	  <test.class>ESBAllBotTests</test.class>
 	</properties>
 
 	<build>
@@ -27,7 +28,7 @@
 		<surefire.timeout>${test.timeout}</surefire.timeout>
 		<forkedProcessTimeoutInSeconds>${test.timeout}</forkedProcessTimeoutInSeconds>
 		<testSuite>org.jboss.tools.esb.ui.bot.test</testSuite>
-		<testClass>org.jboss.tools.esb.ui.bot.tests.ESBAllBotTests</testClass>
+		<testClass>org.jboss.tools.esb.ui.bot.tests.${test.class}</testClass>
 		<dependencies combine.children="append">
 		  <dependency>
 		    <type>p2-installable-unit</type>
