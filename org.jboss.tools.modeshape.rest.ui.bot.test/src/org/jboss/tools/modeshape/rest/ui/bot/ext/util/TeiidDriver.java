@@ -66,6 +66,6 @@ public class TeiidDriver implements Driver {
 
 	@Override
 	public Logger getParentLogger() throws SQLFeatureNotSupportedException {
-		throw new UnsupportedOperationException("Logger is not supported");
+		return Logger.getLogger("TeiidDriver");
 	}
 }
