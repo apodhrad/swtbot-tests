@@ -87,7 +87,7 @@
 	    <properties>
 	      <jbosstools-target-site>http://www.qa.jboss.com/binaries/RHDS/updates/jbds-target-platform_3.3.indigo.SR2</jbosstools-target-site>
 	      <core-update-site>http://www.qa.jboss.com/binaries/RHDS/updates/development/5.0.2.GA.core</core-update-site>
-	      <soa-update-site>http://www.qa.jboss.com/binaries/RHDS/updates/development/5.0.3.GA.soa-tooling</soa-update-site>
+	      <soa-update-site>http://www.qa.jboss.com/binaries/RHDS/updates/development/5.0.4.GA.soa-tooling</soa-update-site>
 	      <example.feature>com.jboss.jbds.bpel.feature.feature.group</example.feature>
 	    </properties>
 	    <build>
@@ -250,7 +250,7 @@
 		      <configuration>
 			<target>
 			  <echo file="${requirementsDirectory}/jboss-soa-p-5/jboss-as/server/default/conf/props/soa-users.properties">admin=admin</echo>
-			  <echo file="soa.properties">SERVER=SOA,5.3,default,target/requirements/jboss-soa-p-5/jboss-as${line.separator}ESB=4.11,target/requirements/jboss-soa-p-5${line.separator}JBPM=3.2.13,target/requirements/jboss-soa-p-5/jbpm-jpdl</echo>
+			  <echo file="soa.properties">SERVER=SOA,5.3,default,target/requirements/jboss-soa-p-5/jboss-as${line.separator}ESB=${esb-version},target/requirements/jboss-soa-p-5${line.separator}JBPM=3.2.13,target/requirements/jboss-soa-p-5/jbpm-jpdl</echo>
 			</target>
 		      </configuration>
 		    </execution>
@@ -258,6 +258,30 @@
 		</plugin>
 	      </plugins>
 	    </build>
+	  </profile>
+	  <profile>
+	    <id>soa520</id>
+	    <properties>
+	      <esb-version>4.10</esb-version>
+	      <soa-url>http://10.34.32.168/released/soa-5.2.0.GA/soa-p-5.2.0.GA.zip</soa-url>
+	      <eds-url>http://10.34.32.168/released/soa-5.2.0.GA/eds-p-5.2.0.GA.zip</eds-url>
+	    </properties>
+	  </profile>
+	  <profile>
+	    <id>soa530</id>
+	    <properties>
+	      <esb-version>4.11</esb-version>
+	      <soa-url>http://10.34.32.168/released/soa-5.3.0.GA/soa-p-5.3.0.GA.zip</soa-url>
+	      <eds-url>http://10.34.32.168/released/soa-5.3.0.GA/eds-p-5.3.0.GA.zip</eds-url>
+	    </properties>
+	  </profile>
+	  <profile>
+	    <id>soa531</id>
+	    <properties>
+	      <esb-version>4.11</esb-version>
+	      <soa-url>http://10.34.32.168/released/soa-5.3.1.GA/soa-p-5.3.1.GA.zip</soa-url>
+	      <eds-url>http://10.34.32.168/released/soa-5.3.1.GA/eds-p-5.3.1.GA.zip</eds-url>
+	    </properties>
 	  </profile>
 	  <!-- Install SOA Platform with EDS --> 
 	  <profile>
@@ -349,7 +373,7 @@
 			<target>
 			  <echo file="${requirementsDirectory}/jboss-soa-p-5/jboss-as/server/default/conf/props/soa-users.properties">admin=admin</echo>
 			  <echo file="${requirementsDirectory}/jboss-soa-p-5/jboss-as/server/default/conf/props/teiid-security-users.properties">user=user</echo>
-			  <echo file="soa.properties">SERVER=SOA,5.3,default,target/requirements/jboss-soa-p-5/jboss-as${line.separator}ESB=4.11,target/requirements/jboss-soa-p-5${line.separator}MODESHAPE=eds</echo>
+			  <echo file="soa.properties">SERVER=SOA,5.3,default,target/requirements/jboss-soa-p-5/jboss-as${line.separator}ESB=${esb-version},target/requirements/jboss-soa-p-5${line.separator}MODESHAPE=eds</echo>
 			</target>
 		      </configuration>
 		    </execution>
