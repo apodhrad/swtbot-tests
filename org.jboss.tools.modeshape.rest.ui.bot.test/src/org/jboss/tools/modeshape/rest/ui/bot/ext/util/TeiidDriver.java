@@ -7,7 +7,6 @@ import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverPropertyInfo;
 import java.sql.SQLException;
-import java.sql.SQLFeatureNotSupportedException;
 import java.util.Properties;
 import java.util.logging.Logger;
 
@@ -56,7 +55,8 @@ public class TeiidDriver implements Driver {
 		return this.driver.getMinorVersion();
 	}
 
-	public DriverPropertyInfo[] getPropertyInfo(String u, Properties p) throws SQLException {
+	public DriverPropertyInfo[] getPropertyInfo(String u, Properties p)
+			throws SQLException {
 		return this.driver.getPropertyInfo(u, p);
 	}
 
@@ -64,8 +64,7 @@ public class TeiidDriver implements Driver {
 		return this.driver.jdbcCompliant();
 	}
 
-	@Override
-	public Logger getParentLogger() throws SQLFeatureNotSupportedException {
-		return null;
+	public Logger getParentLogger() {
+		return Logger.getLogger("TeiidDriver");
 	}
 }
